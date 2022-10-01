@@ -1,0 +1,27 @@
+public void backtrack(String s , int idx , HashMap<Character,String> map , StringBuilder sb , List<String> ans){
+    if(idx==s.length()){ // for exmaple for "23" has length 2 to jaise hi 2 index complete ho jayega waise hi waise hi hm return kr jayenge.
+        ans.add(sb.toString());
+        return;
+    }
+    String str = map.get(s.charAt(idx)); // for eg for "23" has two index indx[0] will give the value "abc" which we store in str.
+    for(int i=0;i<str.length();i++){ // then we run this loop for string "abc" 
+        sb.append(str.charAt(i)); // we add every char of "abc" in string builder for i=0 we add "a" in sb.
+        backtrack(s,idx+1,map,sb,ans); // we run this funtion we have to check every other possibilities for "a". for eg -> "ad","ae" and etc.
+        sb.deleteCharAt(sb.length()-1); // when we got first ans ("ad") then we remove d form "ad" becoz we also have to check all other possibilities of a (e.g - "ae","af" etc).
+    }
+}
+public List<String> letterCombinations(String digits) {
+    ArrayList<String> list = new ArrayList<>();
+    if(digits.length()==0) return list;
+    HashMap<Character,String> map = new HashMap<>();
+    map.put('2',"abc");
+    map.put('3',"def");
+    map.put('4',"ghi");
+    map.put('5',"jkl");
+    map.put('6',"mno");
+    map.put('7',"pqrs");
+    map.put('8',"tuv");
+    map.put('9',"wxyz");
+    backtrack(digits,0,map,new StringBuilder(),list);
+    return list;
+}
